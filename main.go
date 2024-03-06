@@ -21,4 +21,6 @@ func main() {
 	for _, num := range dummyArr {
 		fmt.Println(num)
 	}
+
+	MapPractice()
 }
