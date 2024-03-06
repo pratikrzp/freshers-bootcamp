@@ -1,27 +1,9 @@
 package main
 
-import (
-	"fmt"
-)
+import "github.com/pratikrzp/freshers-bootcamp/examples"
 
 func main() {
-	dummyArr := []int{}
-
-	fmt.Println(dummyArr)
-
-	dummyArr = append(dummyArr, 1)
-	fmt.Println(dummyArr)
-
-	for i := 0; i < 5; i++ {
-		dummyArr = append(dummyArr, i)
-	}
-
-	fmt.Println(dummyArr)
-
-	for _, num := range dummyArr {
-		fmt.Println(num)
-	}
-
-	MapPractice()
-	TestMethodInGo()
+	examples.ArraySlice()
+	examples.MapPractice()
+	examples.TestMethodInGo()
 }
