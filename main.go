@@ -6,4 +6,5 @@ func main() {
 	examples.ArraySlice()
 	examples.MapPractice()
 	examples.TestMethodInGo()
+	examples.InterfaceExample()
 }
