@@ -1,95 +1,41 @@
-package day01
+package main
 
-import (
-	"encoding/json"
-	"errors"
-)
+import "fmt"
 
-// Matrix struct represents a matrix data structure
+func MakeMatrix() {
+	matrix1 := Matrix{2, 2, [][]int{{1, 2}, {5, 2}}}
+	matrix2 := Matrix{2, 2, [][]int{{0, 3}, {8, 22}}}
+
+	fmt.Println(matrix1.add(matrix2))
+}
+
 type Matrix struct {
 	rows int
 	cols int
-	data [][]float64
+	ele  [][]int
 }
 
-// NewMatrix creates a new Matrix with the given rows and columns
-func NewMatrix(rows, cols int) *Matrix {
-	return &Matrix{rows: rows, cols: cols, data: make([][]float64, rows)}
-}
-
-// GetRows returns the number of rows in the matrix
-func (m *Matrix) GetRows() int {
+func (m *Matrix) getRows() int {
 	return m.rows
 }
 
-// GetCols returns the number of columns in the matrix
-func (m *Matrix) GetCols() int {
-	return m.cols
+func (m *Matrix) getCols() int {
+	return m.rows
 }
 
-// SetElement sets the element at the given row (i) and column (j) to the specified value
-func (m *Matrix) SetElement(i, j int, value float64) error {
-	if i < 0 || i >= m.rows || j < 0 || j >= m.cols {
-		return errOutOfBounds
-	}
-	m.data[i][j] = value
-	return nil
+func (m *Matrix) setElement(row, col, val int) {
+	m.ele[row][col] = val
 }
 
-// Add adds the current matrix with another matrix of the same dimensions
-func (m *Matrix) Add(other *Matrix) (*Matrix, error) {
-	if m.rows != other.rows || m.cols != other.cols {
-		return nil, errMatrixDimMismatch
-	}
-	result := NewMatrix(m.rows, m.cols)
-	for i := 0; i < m.rows; i++ {
-		for j := 0; j < m.cols; j++ {
-			result.data[i][j] = m.data[i][j] + other.data[i][j]
+func (m *Matrix) add(m2 Matrix) (result Matrix) {
+	result.cols = m.cols
+	result.rows = m.rows
+	result.ele = [][]int{{0, 0}, {0, 0}}
+	for i := 0; i < result.rows; i++ {
+		for j := 0; j < result.cols; j++ {
+			fmt.Println(i, j, result.ele[i][j])
+			result.ele[i][j] = m.ele[i][j] + m2.ele[i][j]
 		}
 	}
-	return result, nil
-}
-
-// ToJSON returns the matrix data as a JSON string
-func (m *Matrix) ToJSON() (string, error) {
-	data, err := json.Marshal(m.data)
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
-}
-
-var (
-	errOutOfBounds       = errors.New("index out of bounds")
-	errMatrixDimMismatch = errors.New("matrices must have the same dimensions for addition")
-)
-
-func RunMatrix() {
-	// Example usage
-	matrix1 := NewMatrix(2, 3)
-	matrix1.SetElement(0, 0, 1)
-	matrix1.SetElement(0, 1, 2)
-	matrix1.SetElement(0, 2, 3)
-	matrix1.SetElement(1, 0, 4)
-	matrix1.SetElement(1, 1, 5)
-	matrix1.SetElement(1, 2, 6)
-
-	matrix2 := NewMatrix(2, 3)
-	matrix2.SetElement(0, 0, 10)
-	matrix2.SetElement(0, 1, 20)
-	matrix2.SetElement(0, 2, 30)
-	matrix2.SetElement(1, 0, 40)
-	matrix2.SetElement(1, 1, 50)
-	matrix2.SetElement(1, 2, 60)
-
-	resultMatrix, err := matrix1.Add(matrix2)
-	if err != nil {
-		panic(err)
-	}
-
-	jsonData, err := resultMatrix.ToJSON()
-	if err != nil {
-		panic(err)
-	}
-	println(jsonData)
+	return
 }

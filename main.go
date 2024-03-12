@@ -1,7 +1,8 @@
 package main
 
 import (
-	day01 "github.com/pratikrzp/freshers-bootcamp/day-01"
+	"time"
+
 	"github.com/pratikrzp/freshers-bootcamp/examples"
 )
 
@@ -10,5 +11,6 @@ func main() {
 	examples.MapPractice()
 	examples.TestMethodInGo()
 	examples.InterfaceExample()
-	day01.RunMatrix()
+	go examples.SayHello("Pratik")
+	time.Sleep(1000)
 }
