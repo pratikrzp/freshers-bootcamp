@@ -25,7 +25,7 @@ func (h StudentHandler) CreateStudent(c *gin.Context) {
 	if result.Error != nil {
 		panic("Failed to create student")
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Student created"})
+	c.JSON(http.StatusCreated, gin.H{"message": "Student created"})
 }
 
 func (h StudentHandler) ReadStudent(c *gin.Context) {
