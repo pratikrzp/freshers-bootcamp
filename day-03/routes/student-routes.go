@@ -5,17 +5,19 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func StudentRoutes(router *gin.Engine) {
+func StudentRoutes(DB *gorm.DB, router *gin.Engine) {
+	studentHandler := controllers.NewStudentController(DB)
 	r1 := router.Group("/student", func(ctx *gin.Context) {
 		fmt.Println("New request received with student group")
 	})
 	{
-		r1.GET("/", controllers.ReadAllStudent)
-		r1.GET("/:id", controllers.ReadStudent)
-		r1.POST("/", controllers.CreateStudent)
-		r1.PUT("/:id", controllers.UpdateStudent)
-		r1.DELETE("/:id", controllers.DeleteStudent)
+		r1.GET("/", studentHandler.ReadAllStudent)
+		r1.GET("/:id", studentHandler.ReadStudent)
+		r1.POST("/", studentHandler.CreateStudent)
+		r1.PUT("/:id", studentHandler.UpdateStudent)
+		r1.DELETE("/:id", studentHandler.DeleteStudent)
 	}
 }
